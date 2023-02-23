@@ -38,7 +38,7 @@ class Ball:
             self.yvelocity *= -1
 
         #Velocity Dependent Retarding Force
-        self.newFriction *= 1.01 * self.newFriction
+        self.newFriction *= 1.01
         self.xvelocity *= math.exp(-self.newFriction)
         self.yvelocity *= math.exp(-self.newFriction)
         
