@@ -44,7 +44,7 @@ class Ball:
         
 
     def swing(self):
-        print(self.xvelocity, self.yvelocity)
+        print(f'{self.xvelocity : .2f}', f'{self.yvelocity : .2f}')
         if pygame.mouse.get_pressed()[0]:
             direction = pygame.mouse.get_pos()
             self.newFriction = self.friction
@@ -62,6 +62,9 @@ size = (SCREENWIDTH, SCREENHEIGHT)
 DISPLAY = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
+#Background
+hole1 = pygame.image.load("\utils\Hole 1.png")
+
 #Game Parameters
 FPS = 144
 
@@ -76,6 +79,7 @@ while carryOn:
             carryOn = False
             
     #Game Logic
+    DISPLAY.blit(hole1, (0,0))
     pygame.display.set_caption(f'{clock.get_fps() :.0f}')
     player1.draw()
     player1.move()
