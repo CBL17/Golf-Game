@@ -15,7 +15,7 @@ class Ball:
         self.angle = 0
         self.velocity = 0
         self.radius = 10
-        self.friction = 0.01
+        self.friction = 0.001
         self.newFriction = self.friction
 
         self.xvelocity = self.velocity * math.cos(math.radians(self.angle))
