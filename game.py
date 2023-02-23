@@ -33,9 +33,9 @@ class Ball:
 
         #Velocity Changes
         if (self.x > SCREENWIDTH-self.radius) or (self.x < self.radius):
-            self.xvelocity *= -1
+            self.xvelocity *= -0.95
         if (player1.y > SCREENHEIGHT-self.radius) or (self.y < self.radius):
-            self.yvelocity *= -1
+            self.yvelocity *= -0.95
 
         #Velocity Dependent Retarding Force
         self.newFriction *= 1.01
@@ -44,12 +44,12 @@ class Ball:
         
 
     def swing(self):
+        print(self.xvelocity, self.yvelocity)
         if pygame.mouse.get_pressed()[0]:
             direction = pygame.mouse.get_pos()
-            print(direction)
             self.newFriction = self.friction
-            self.xvelocity = 5*math.cos(math.atan2(direction[1]-self.y, direction[0]-self.x))
-            self.yvelocity = 5*math.sin(math.atan2(direction[1]-self.y, direction[0]-self.x))
+            self.xvelocity = 3*math.cos(math.atan2(direction[1]-self.y, direction[0]-self.x))
+            self.yvelocity = 3*math.sin(math.atan2(direction[1]-self.y, direction[0]-self.x))
             
             
 
