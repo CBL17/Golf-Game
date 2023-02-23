@@ -10,7 +10,7 @@ RED   = ( 255, 0, 0 )
 
 class Ball:
     def __init__(self):
-        self.x = 640
+        self.x = 30
         self.y = 360
         self.angle = 0
         self.velocity = 0
@@ -22,7 +22,6 @@ class Ball:
         self.yvelocity = self.velocity * math.sin(math.radians(self.angle))
 
     def draw(self):
-        DISPLAY.fill(WHITE)
         pygame.draw.circle(DISPLAY, RED, (self.x,self.y), self.radius)
 
     def move(self):
@@ -31,11 +30,17 @@ class Ball:
         self.x+= self.xvelocity
         self.y+= self.yvelocity
 
-        #Velocity Changes
+        #Velocity Changes for outside border
         if (self.x > SCREENWIDTH-self.radius) or (self.x < self.radius):
             self.xvelocity *= -0.95
-        if (player1.y > SCREENHEIGHT-self.radius) or (self.y < self.radius):
+        if (self.y > SCREENHEIGHT-self.radius) or (self.y < self.radius):
             self.yvelocity *= -0.95
+
+        #Velocity Changes for Hole 1
+        if (self.x < 961+self.radius and (self.y < 241+self.radius or self.y > 479-self.radius) and (self.y > 240 and self.y < 480)):
+            self.yvelocity *= -0.95
+        if (self.x < 961+self.radius and (self.y < 241+self.radius or self.y > 479-self.radius) and (self.x > 960)):
+            self.xvelocity *= -0.95
 
         #Velocity Dependent Retarding Force
         self.newFriction *= 1.01
@@ -44,14 +49,12 @@ class Ball:
         
 
     def swing(self):
-        print(f'{self.xvelocity : .2f}', f'{self.yvelocity : .2f}')
+        print(f'{self.x : .2f}', f'{self.y : .2f}')
         if pygame.mouse.get_pressed()[0]:
             direction = pygame.mouse.get_pos()
             self.newFriction = self.friction
             self.xvelocity = 3*math.cos(math.atan2(direction[1]-self.y, direction[0]-self.x))
             self.yvelocity = 3*math.sin(math.atan2(direction[1]-self.y, direction[0]-self.x))
-            
-            
 
 pygame.init()
 
@@ -63,7 +66,7 @@ DISPLAY = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
 #Background
-hole1 = pygame.image.load("\utils\Hole 1.png")
+hole1 = pygame.image.load("utils\Hole 1.png")
 
 #Game Parameters
 FPS = 144
