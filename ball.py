@@ -49,8 +49,21 @@ class Ball:
             self.yvelocity *= 0.95        
 
     def swing(self):
-        if(pygame.mouse.get_pressed()[0]):
-            direction = pygame.mouse.get_pos()
-            self.newFriction = self.friction
-            self.xvelocity = -5*math.cos(math.atan2(direction[1]-self.y, direction[0]-self.x))
-            self.yvelocity = -5*math.sin(math.atan2(direction[1]-self.y, direction[0]-self.x))
+        dragging = False
+        mouse_x, mouse_y = (0,0)
+        fmouse_x, fmouse_y = (0,0)
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+               if event.button == 1:
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    dragging = True
+                    print(pygame.mouse.get_pos())
+
+            elif event.type == pygame.MOUSEBUTTONUP:
+                self.newFriction = self.friction
+                self.xvelocity = -5*math.cos(math.atan2(fmouse_y-mouse_y-self.y, fmouse_x-mouse_x-self.x))
+                self.yvelocity = -5*math.sin(math.atan2(fmouse_y-mouse_y-self.y, fmouse_x-mouse_x-self.x))
+
+            elif event.type == pygame.MOUSEMOTION:
+                if dragging:
+                    fmouse_x, fmouse_y = pygame.mouse.get_pos()

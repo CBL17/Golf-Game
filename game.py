@@ -32,6 +32,11 @@ while carryOn:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             carryOn = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+               if event.button == 1:
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    dragging = True
+                    print(pygame.mouse.get_pos())
     #Tab Name
     pygame.display.set_caption(f'{clock.get_fps() :.0f}')
 
@@ -40,7 +45,7 @@ while carryOn:
     player1.drawBall(DISPLAY, WHITE)
     player1.barrierCheck()
     player1.move()
-    player1.swing()
+    #player1.swing()
     
     #Frame/Sec
     pygame.display.flip()
