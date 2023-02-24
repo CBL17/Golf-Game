@@ -21,7 +21,7 @@ DISPLAY = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
 #Background
-hole1 = pygame.image.load("utils\Hole 1.png")
+hole1 = pygame.image.load("utils/Hole 1.png")
 
 #Ball Initialization
 player1 = Ball(SCREENWIDTH, SCREENHEIGHT)
@@ -37,7 +37,7 @@ while carryOn:
 
     #Game Logic
     DISPLAY.blit(hole1, (0,0))
-    player1.draw(DISPLAY, WHITE)
+    player1.drawBall(DISPLAY, WHITE)
     player1.barrierCheck()
     player1.move()
     player1.swing()

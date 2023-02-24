@@ -18,7 +18,7 @@ class Ball:
         self.xvelocity = self.velocity * math.cos(math.radians(self.angle))
         self.yvelocity = self.velocity * math.sin(math.radians(self.angle))
 
-    def draw(self, DISPLAY, COLOR):
+    def drawBall(self, DISPLAY, COLOR):
         pygame.draw.circle(DISPLAY, COLOR, (self.x,self.y), self.radius)
 
     def move(self):
@@ -35,9 +35,9 @@ class Ball:
     def barrierCheck(self):
 
         #Velocity Changes for outside border
-        if (self.x > self.SCREENWIDTH-self.radius) or (self.x < self.radius):
+        if (self.x > self.SCREENWIDTH-self.radius-1) or (self.x < self.radius+1):
             self.xvelocity *= -0.95
-        if (self.y > self.SCREENHEIGHT-self.radius) or (self.y < self.radius):
+        if (self.y > self.SCREENHEIGHT-self.radius-1) or (self.y < self.radius+1):
             self.yvelocity *= -0.95
 
         #Velocity Changes for Hole 1
@@ -49,8 +49,8 @@ class Ball:
             self.yvelocity *= 0.95        
 
     def swing(self):
-        if pygame.mouse.get_pressed()[0]:
+        if(pygame.mouse.get_pressed()[0]):
             direction = pygame.mouse.get_pos()
             self.newFriction = self.friction
-            self.xvelocity = 5*math.cos(math.atan2(direction[1]-self.y, direction[0]-self.x))
-            self.yvelocity = 5*math.sin(math.atan2(direction[1]-self.y, direction[0]-self.x))
+            self.xvelocity = -5*math.cos(math.atan2(direction[1]-self.y, direction[0]-self.x))
+            self.yvelocity = -5*math.sin(math.atan2(direction[1]-self.y, direction[0]-self.x))
