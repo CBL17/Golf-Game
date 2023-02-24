@@ -4,12 +4,6 @@ from ball import Ball
 
 pygame.init()
 
-#Usuable Colors
-BLACK = ( 0, 0, 0 )
-WHITE = ( 255, 255, 255 )
-GREEN = ( 0, 255, 0 )
-RED   = ( 255, 0, 0 )
-
 #Game Parameters
 FPS = 144
 SCREENWIDTH  = 1280
@@ -37,7 +31,7 @@ while carryOn:
 
     #Game Logic
     DISPLAY.blit(hole1, (0,0))
-    player1.drawBall(DISPLAY, WHITE)
+    player1.drawBall(DISPLAY, (255,255,255))
     player1.barrierCheck()
     player1.move()
     player1.swing()
