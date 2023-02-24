@@ -2,9 +2,9 @@ import pygame
 import math
 
 class Ball:
-    def __init__(self, width, height):
-        self.SCREENWIDTH = width
-        self.SCREENHEIGHT = height
+    def __init__(self, size: tuple):
+        self.SCREENWIDTH = size[0]
+        self.SCREENHEIGHT = size[1]
         
         self.x = 90
         self.y = 360

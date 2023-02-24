@@ -1,24 +1,26 @@
 import pygame
 import math
+from hole import Hole
+from player import Player
 from ball import Ball
 
-pygame.init()
-
 #Game Parameters
-FPS = 144
+FRAME_RATE = 144
 SCREENWIDTH  = 1280
 SCREENHEIGHT = 720
+
+#Game Initializers 
+pygame.init()
+clock = pygame.time.Clock()
 
 #Screen Initialization
 size = (SCREENWIDTH, SCREENHEIGHT)
 DISPLAY = pygame.display.set_mode(size)
-clock = pygame.time.Clock()
 
-#Background
-hole1 = pygame.image.load("utils/Hole 1.png")
-
-#Ball Initialization
-player1 = Ball(SCREENWIDTH, SCREENHEIGHT)
+#Object Initializations
+Hole1 = Hole("utils/Hole 1.png", DISPLAY)
+bazinga = Ball(size)
+player1 = Player(bazinga, "Emma")
 
 #Game Loop
 carryOn = True
@@ -26,17 +28,15 @@ while carryOn:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             carryOn = False
-    #Tab Name
-    pygame.display.set_caption(f'{clock.get_fps() :.0f}')
 
     #Game Logic
-    DISPLAY.blit(hole1, (0,0))
-    player1.drawBall(DISPLAY, (255,255,255))
-    player1.barrierCheck()
-    player1.move()
-    player1.swing()
+    Hole1.show()
+    bazinga.drawBall(DISPLAY, (255,255,255))
+    bazinga.barrierCheck()
+    bazinga.move()
+    bazinga.swing()
     
     #Frame/Sec
     pygame.display.flip()
-    clock.tick(FPS)
+    clock.tick(FRAME_RATE)
 pygame.quit()
