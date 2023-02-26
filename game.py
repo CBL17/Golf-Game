@@ -18,11 +18,11 @@ size = (SCREENWIDTH, SCREENHEIGHT)
 DISPLAY = pygame.display.set_mode(size)
 
 #Object Initializations
-Hole1 = Hole("utils/Hole 1.png", DISPLAY)
+Hole1 = Hole("holes\Hole 1\Hole 1.png", DISPLAY)
 bazinga = Ball(size)
 player1 = Player(bazinga, "Emma")
 
-Hole1.barrierCheck("cringe.txt")
+Hole1.barrierCheck("holes\Hole 1\hole1pts.txt")
 
 #Game Loop
 carryOn = True
@@ -32,11 +32,11 @@ while carryOn:
             carryOn = False
 
     #Game Logic
-    Hole1.show()
-    bazinga.drawBall(DISPLAY, (255,255,255))
-    bazinga.barrierCheck()
-    bazinga.move()
-    bazinga.swing()
+    #Hole1.show()
+    #bazinga.drawBall(DISPLAY, (255,255,255))
+    #bazinga.barrierCheck()
+    #bazinga.move()
+    #bazinga.swing()
     
     #Frame/Sec
     pygame.display.flip()

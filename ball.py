@@ -9,7 +9,7 @@ class Ball:
     radius = 10
     friction = 0.001
     newFriction = 0
-    
+
     def __init__(self, size: tuple):
         self.SCREENWIDTH = size[0]
         self.SCREENHEIGHT = size[1]
@@ -33,22 +33,29 @@ class Ball:
     
 #TODO remove barrier checks but add bounces (velocity changes)
 
-    def barrierCheck(self) -> None:
+    def xVelocityChange(self) -> None:
+
+        self.xvelocity *= -0.95
+        self.yvelocity *= 0.95
+
+    def yVelocityChange(self) -> None:
+
+        self.yvelocity *= -0.95
+        self.xvelocity *= 0.95
 
         #Velocity Changes for outside border
-        if (self.x > self.SCREENWIDTH-self.radius-1) or (self.x < self.radius+1):
-            self.xvelocity *= -0.95
-        if (self.y > self.SCREENHEIGHT-self.radius-1) or (self.y < self.radius+1):
-            self.yvelocity *= -0.95
+        #if (self.x > self.SCREENWIDTH-self.radius-1) or (self.x < self.radius+1):
+        #    self.xvelocity *= -0.95
+        #if (self.y > self.SCREENHEIGHT-self.radius-1) or (self.y < self.radius+1):
+        #    self.yvelocity *= -0.95
 
         #Velocity Changes for Hole 1
-        if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.y > 240 and self.y < 480)):
-            self.yvelocity *= -0.95
-            self.xvelocity *= 0.95
-        if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.x > 960)):
-            self.xvelocity *= -0.95
-            self.yvelocity *= 0.95        
-
+        #if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.y > 240 and self.y < 480)):
+        #    self.yvelocity *= -0.95
+        #    self.xvelocity *= 0.95
+        #if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.x > 960)):
+        #    self.xvelocity *= -0.95
+        #    self.yvelocity *= 0.95
     def swing(self):
         if(pygame.mouse.get_pressed()[0]):
             direction = pygame.mouse.get_pos()

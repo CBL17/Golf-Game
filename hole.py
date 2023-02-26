@@ -1,4 +1,5 @@
 from pygame import Surface, image
+from re import findall
 
 class Hole:
     def __init__(self, background_file: str, DISPLAY: Surface) -> None:
@@ -15,7 +16,11 @@ class Hole:
 #      Also need to use map() to convert string(s) to tuple(s)
 
     def barrierCheck(self, filename: str) -> None:
-        self.file = open(filename)
-        points = [line.split(" ") for line in self.file.readlines()]
-        print(points[0][0])
+        array = []
+        i = 0
+        file = open(filename, 'r')
+        for line in file:
+            array.append(list(map(int, findall(r'\d+', line))))
+        print(array)
+
         #raise ValueError("Something")
