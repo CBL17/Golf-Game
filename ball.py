@@ -2,18 +2,17 @@ import pygame
 import math
 
 class Ball:
+    x = 90
+    y = 360
+    angle = 0
+    velocity = 0
+    radius = 10
+    friction = 0.001
+    newFriction = 0
+    
     def __init__(self, size: tuple):
         self.SCREENWIDTH = size[0]
         self.SCREENHEIGHT = size[1]
-        
-        self.x = 90
-        self.y = 360
-        self.angle = 0
-        self.velocity = 0
-
-        self.radius = 10
-        self.friction = 0.001
-        self.newFriction = self.friction
 
         self.xvelocity = self.velocity * math.cos(math.radians(self.angle))
         self.yvelocity = self.velocity * math.sin(math.radians(self.angle))
@@ -32,7 +31,9 @@ class Ball:
         self.xvelocity *= math.exp(-self.newFriction)
         self.yvelocity *= math.exp(-self.newFriction)
     
-    def barrierCheck(self):
+#TODO remove barrier checks but add bounces (velocity changes)
+
+    def barrierCheck(self) -> None:
 
         #Velocity Changes for outside border
         if (self.x > self.SCREENWIDTH-self.radius-1) or (self.x < self.radius+1):
