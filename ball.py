@@ -1,24 +1,16 @@
-import pygame
+from pygame import Surface, draw, mouse
 import math
 
 class Ball:
-    x = 90
-    y = 360
+    x = 0
+    y = 0
     angle = 0
     velocity = 0
     radius = 10
-    friction = 0.001
+    FRICTION = 0.001
     newFriction = 0
-
-    def __init__(self, size: tuple):
-        self.SCREENWIDTH = size[0]
-        self.SCREENHEIGHT = size[1]
-
-        self.xvelocity = self.velocity * math.cos(math.radians(self.angle))
-        self.yvelocity = self.velocity * math.sin(math.radians(self.angle))
-
-    def drawBall(self, DISPLAY, COLOR):
-        pygame.draw.circle(DISPLAY, COLOR, (self.x,self.y), self.radius)
+    xvelocity = velocity * math.cos(math.radians(angle))
+    yvelocity = velocity * math.sin(math.radians(angle))
 
     def move(self):
         
@@ -33,32 +25,34 @@ class Ball:
     
 #TODO remove barrier checks but add bounces (velocity changes)
 
-    def xVelocityChange(self) -> None:
+    # def xVelocityChange(self) -> None:
 
-        self.xvelocity *= -0.95
-        self.yvelocity *= 0.95
+        # self.xvelocity *= -0.95
+        # self.yvelocity *= 0.95
 
-    def yVelocityChange(self) -> None:
+    def VelocityChange(self) -> None:
 
-        self.yvelocity *= -0.95
-        self.xvelocity *= 0.95
+        # self.yvelocity *= -0.95
+        # self.xvelocity *= 0.95
 
         #Velocity Changes for outside border
-        #if (self.x > self.SCREENWIDTH-self.radius-1) or (self.x < self.radius+1):
-        #    self.xvelocity *= -0.95
-        #if (self.y > self.SCREENHEIGHT-self.radius-1) or (self.y < self.radius+1):
-        #    self.yvelocity *= -0.95
+        if (self.x > 1280 - self.radius-1) or (self.x < self.radius+1):
+            self.xvelocity *= -0.95
+        if (self.y > 720 - self.radius-1) or (self.y < self.radius+1): 
+            self.yvelocity *= -0.95
 
         #Velocity Changes for Hole 1
-        #if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.y > 240 and self.y < 480)):
-        #    self.yvelocity *= -0.95
-        #    self.xvelocity *= 0.95
-        #if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.x > 960)):
-        #    self.xvelocity *= -0.95
-        #    self.yvelocity *= 0.95
-    def swing(self):
-        if(pygame.mouse.get_pressed()[0]):
-            direction = pygame.mouse.get_pos()
-            self.newFriction = self.friction
-            self.xvelocity = -5*math.cos(math.atan2(direction[1]-self.y, direction[0]-self.x))
-            self.yvelocity = -5*math.sin(math.atan2(direction[1]-self.y, direction[0]-self.x))
+        if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.y > 240 and self.y < 480)):
+            self.yvelocity *= -0.85
+            self.xvelocity *= 0.85
+        if (self.x < 960+self.radius and (self.y < 240+self.radius or self.y > 480-self.radius) and (self.x > 960)):
+            self.xvelocity *= -0.85
+            self.yvelocity *= 0.85
+
+    def swing(self, direction: tuple, direction2: tuple) -> None:
+        self.newFriction = self.FRICTION
+        dx = direction2[0]-direction[0]
+        dy = direction2[1]-direction[1]
+        power = math.sqrt(dx*dx + dy*dy)
+        self.xvelocity = power * -0.015 * math.cos(math.atan2(direction2[1]-direction[1], direction2[0]-direction[0]))
+        self.yvelocity = power * -0.015 * math.sin(math.atan2(direction2[1]-direction[1], direction2[0]-direction[0]))
